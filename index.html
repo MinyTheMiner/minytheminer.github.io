@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Google Sheets API Example</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+	<textarea id="data-textarea"></textarea>
+
+	<script>
+		var url = "https://docs.google.com/spreadsheets/d/e/1cqs6i0N_rlPOB-DgX8hlgEuz4TBbM5H2XGpiuHrRPS4/pubhtml";
+
+		$.get(url, function(data) {
+			var rows = $(data).find("table tr:gt(0)");
+
+			var text = "";
+
+			rows.each(function(index) {
+				var cells = $(this).find("td");
+
+				var name = $(cells[0]).text();
+				var email = $(cells[1]).text();
+				var phone = $(cells[2]).text();
+
+				text += name + "\t" + email + "\t" + phone + "\n";
+			});
+
+			$("#data-textarea").val(text);
+		});
+	</script>
+</body>
+</html>
